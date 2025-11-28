@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+  <title>Monster Detail</title>
+
+  <style>
+
+    body {
+      font-family: monospace;
+      background: #000000;
+      padding: 40px;
+      color: #860000;
+    }
+
+    h3 {
+      font-family: "Creepster", cursive;
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #ff0808;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      max-width: 420px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #dcdde1;
+      font-size: 15px;
+      margin-top: 5px;
+      outline: none;
+      transition: 0.25s;
+    }
+
+    select:hover, select:focus {
+      border-color: #0984e3;
+      box-shadow: 0 0 3px rgba(9,132,227,0.4);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    th {
+      background: #850000;
+      color: white;
+      text-align: left;
+      padding: 12px 15px;
+      width: 130px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    td {
+      padding: 12px 15px;
+      background: #272727;
+      font-size: 15px;
+      color: #e83e3e;
+    }
+
+    hr {
+      margin: 30px 0;
+      border: none;
+      height: 1px;
+      background: #191919;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h3>Monster Detail</h3>
+
+  <div class="card">
+    <label>Select Monster:</label>
+    <select id="monster-list"></select>
+  </div>
+
+  <table style="color: #860000;">
+    <tr>
+      <th>ID</th>
+      <td id="td-monster-id"></td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td id="td-monster-name"></td>
+    </tr>
+    <tr>
+      <th>HP</th>
+      <td id="td-monster-hp"></td>
+    </tr>
+    <tr>
+      <th>EXP</th>
+      <td id="td-monster-exp"></td>
+    </tr>
+  </table>
+
+  <script>
+    const monsters = [
+      { "id": 1, "name": "Fire Dragon", "hp": 150, "exp": 85 },
+      { "id": 2, "name": "Ice Wolf", "hp": 75, "exp": 45 },
+      { "id": 3, "name": "Shadow Goblin", "hp": 40, "exp": 25 },
+      { "id": 4, "name": "Lightning Phoenix", "hp": 200, "exp": 120 },
+      { "id": 5, "name": "Earth Golem", "hp": 180, "exp": 95 },
+      { "id": 6, "name": "Poison Spider", "hp": 60, "exp": 35 },
+      { "id": 7, "name": "Wind Eagle", "hp": 90, "exp": 55 },
+      { "id": 8, "name": "Dark Skeleton", "hp": 65, "exp": 40 },
+      { "id": 9, "name": "Crystal Unicorn", "hp": 120, "exp": 75 },
+      { "id": 10, "name": "Lava Titan", "hp": 250, "exp": 150 }
+    ];
+
+    const selectEl = document.getElementById("monster-list");
+    const tdId = document.getElementById("td-monster-id");
+    const tdName = document.getElementById("td-monster-name");
+    const tdHp = document.getElementById("td-monster-hp");
+    const tdExp = document.getElementById("td-monster-exp");
+
+    function clearMonsterDetail() {
+      tdId.textContent = "";
+      tdName.textContent = "";
+      tdHp.textContent = "";
+      tdExp.textContent = "";
+    }
+
+    function onMonsterChange() {
+      const selectedName = selectEl.value;
+
+      if (selectedName === "") {
+        clearMonsterDetail();
+        return;
+      }
+
+      const monster = monsters.find(m => m.name === selectedName);
+
+      if (monster) {
+        tdId.textContent = monster.id;
+        tdName.textContent = monster.name;
+        tdHp.textContent = monster.hp;
+        tdExp.textContent = monster.exp;
+      }
+    }
+
+    function initMonsterSelect() {
+      const defaultOpt = document.createElement("option");
+      defaultOpt.value = "";
+      defaultOpt.textContent = "-";
+      selectEl.appendChild(defaultOpt);
+
+      monsters.forEach(monster => {
+        const opt = document.createElement("option");
+        opt.value = monster.name;
+        opt.textContent = monster.name;
+        selectEl.appendChild(opt);
+      });
+
+      selectEl.addEventListener("change", onMonsterChange);
+    }
+
+    initMonsterSelect();
+  </script>
+
+</body>
+</html>
